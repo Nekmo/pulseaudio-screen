@@ -18,7 +18,7 @@ def pid_window_corner(pid):
     windows = pids_windows_ids.get(pid) or list(windows_by_pid(pid))
     if pid not in pids_windows_ids:
         pids_windows_ids[pid] = windows
-    if not windows:
+    if not windows or not windows[0]:
         return
     return [int(x) for x in window_data(windows[0])['Corners'].split('  ')[0].split('+')[-2:]]
 

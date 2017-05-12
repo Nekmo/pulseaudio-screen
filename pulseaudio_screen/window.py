@@ -26,7 +26,10 @@ def windows_by_pid(process_id):
 
 
 def window_data(window_id):
-    lines = check_output(['xwininfo', '-id', window_id]).decode('utf-8')
+    try:
+        lines = check_output(['xwininfo', '-id', window_id]).decode('utf-8')
+    except CalledProcessError:
+        return {}
     lines = lines.split('\n')
     lines = [line[2:].split(': ', 1) for line in lines if line.startswith('  ') and ': ' in line]
     return {k: v for k, v in lines}
